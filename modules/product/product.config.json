@@ -1,0 +1,11 @@
+{
+	"name": "product",
+	"slug": "product",
+	"version": "0.1.0",
+	"path": "modules/product",
+	"dependencies": {
+		"model": {},
+		"class": {},
+		"action": {}
+	}
+}

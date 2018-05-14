@@ -1,0 +1,10 @@
+{
+	"name": "my-plugin",
+	"slug": "my-plugin",
+	"modules": [
+		"core/core.config.json",
+		"modules/hello-world/hello_world.config.json",
+		"modules/product/product.config.json"
+	],
+	"version": "0.1.0"
+}
