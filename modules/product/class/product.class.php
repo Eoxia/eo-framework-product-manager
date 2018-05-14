@@ -65,8 +65,11 @@ class Product_Class extends \eoxia\Post_Class {
 	public function display() {
 		$products = $this->get();
 
+		$product_schema = $this->get( array( 'id' => 0 ), true );
+
 		\eoxia\View_Util::exec( 'my-plugin', 'product', 'list', array(
-			'products' => $products,
+			'products'       => $products,
+			'product_schema' => $product_schema,
 		) );
 	}
 }

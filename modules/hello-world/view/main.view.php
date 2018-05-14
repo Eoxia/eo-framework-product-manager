@@ -18,15 +18,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="wrap wpeo-wrap">
 	<h1>Hello World</h1>
 
-	<div class="wpeo-autocomplete autocomplete-light" data-action="search_users">
-		<label class="autocomplete-label" for="autocomplete-search-users">
-			<i class="autocomplete-icon-before far fa-search"></i>
-			<input id="autocomplete-search-users"  placeholder="Utilisateur" class="autocomplete-search-input" type="text" />
-			<span class="autocomplete-icon-after"><i class="far fa-times"></i></span>
-		</label>
-		<ul class="autocomplete-search-list"></ul>
-	</div>
-
 	<div class="wpeo-button button-main action-attribute"
 		data-action="create_product"
 		data-nonce="<?php echo esc_attr( wp_create_nonce( 'create_product' ) ); ?>">

@@ -34,7 +34,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 				) );
 			endforeach;
 		endif;
-		\eoxia\View_Util::exec( 'my-plugin', 'product', 'edit' );
+		\eoxia\View_Util::exec( 'my-plugin', 'product', 'edit', array(
+			'product' => $product_schema,
+		) );
 		?>
 	</tbody>
 </table>

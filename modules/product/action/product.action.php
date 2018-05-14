@@ -28,6 +28,7 @@ class Product_Action {
 	 */
 	public function __construct() {
 		add_action( 'wp_ajax_create_product', array( $this, 'callback_create_product' ) );
+		add_action( 'wp_ajax_load_edit_mode', array( $this, 'callback_load_edit_mode' ) );
 	}
 
 	public function callback_create_product() {
@@ -42,14 +43,47 @@ class Product_Action {
 		$price_ttc = str_replace( ',', '', number_format( $price_ttc, 2 ) );
 		$weight    = str_replace( ',', '', number_format( $weight, 2 ) );
 
-		Product_Class::g()->create( array(
+		$product = Product_Class::g()->create( array(
 			'title'     => $title,
 			'price_ttc' => $price_ttc,
 			'weight'    => $weight,
 			'color'     => $color,
 		) );
 
-		wp_send_json_success();
+		ob_start();
+		\eoxia\View_Util::exec( 'my-plugin', 'product', 'item', array(
+			'product' => $product,
+		) );
+
+		wp_send_json_success( array(
+			'namespace'        => 'myPlugin',
+			'module'           => 'product',
+			'callback_success' => 'createdProductSuccess',
+			'view'             => ob_get_clean(),
+		) );
+	}
+
+	public function callback_load_edit_mode() {
+		check_ajax_referer( 'load_edit_mode' );
+
+		$id = ! empty( $_POST['id'] ) ? (int) $_POST['id'] : 0;
+
+		if ( empty( $id ) ) {
+			wp_send_json_error();
+		}
+
+		$product = Product_Class::g()->get( array( 'id' => $id ), true );
+
+		ob_start();
+		\eoxia\View_Util::exec( 'my-plugin', 'product', 'edit', array(
+			'product' => $product,
+		) );
+		wp_send_json_success( array(
+			'namespace'        => 'myPlugin',
+			'module'           => 'product',
+			'callback_success' => 'loadedEditModeSuccess',
+			'view'             => ob_get_clean(),
+		) );
 	}
 }
 
